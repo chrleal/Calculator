@@ -1,6 +1,9 @@
 const containerButton = document.querySelector('.buttons');
-const display = document.querySelector('.display')
-const buttons = containerButton.querySelectorAll('button')
+const displayUp = document.querySelector('.displayup');
+const display= document.querySelector('.displaydown');
+const buttons = containerButton.querySelectorAll('button');
+let displayNumber = {num1: null, num2: null}
+let operator = null;
 
 buttons.forEach((button) => {
         button.addEventListener('click', populateDisplay)
@@ -8,28 +11,73 @@ buttons.forEach((button) => {
 
 function populateDisplay(e) {
     if (e.target.textContent == "1") {
-        return display.textContent = '1';    
+        display.textContent += "1";
     } else if (e.target.textContent == "2") {
-        return display.textContent = '2';    
+        display.textContent += "2";
     } else if (e.target.textContent == "3") {
-        return display.textContent = '3';    
+        display.textContent += "3";
     } else if (e.target.textContent == "4") {
-        return display.textContent = '4';    
+        display.textContent += "4";
     } else if (e.target.textContent == "5") {
-        return display.textContent = '5';    
+        display.textContent += "5";
     } else if (e.target.textContent == "6") {
-        return display.textContent = '6';    
+        display.textContent += "6";
     } else if (e.target.textContent == "7") {
-        return display.textContent = '7';    
+        display.textContent += "7"; 
     } else if (e.target.textContent == "8") {
-        return display.textContent = '8';    
+        display.textContent += "8";
     } else if (e.target.textContent == "9") {
-        return display.textContent = '9';    
+        display.textContent += "9"; 
     } else if (e.target.textContent == "0") {
-        return display.textContent = '0';
+        if (display.textContent != "0") {
+            display.textContent += "0";
+        }
+    } else if (e.target.textContent == ".") {
+        display.textContent += "."; 
     } else if (e.target.textContent == "C") {
-        return display.textContent = '0';
+        displayNumber.num1 = null;
+        displayNumber.num2 = null;
+        display.textContent = '';
+        displayUp.textContent = '';
+    } else if (e.target.textContent == "/") {
+        displayNumber.num2 = null;
+        operator = "/";
+        displayNumber.num1 = parseFloat(display.textContent);
+        display.textContent = "";
+        displayUp.textContent = `${displayNumber.num1} ${operator} `;
+    } else if (e.target.textContent == "*") {
+        displayNumber.num2 = null;
+        operator = "*";
+        displayNumber.num1 = parseFloat(display.textContent);
+        display.textContent = "";
+        displayUp.textContent = `${displayNumber.num1} ${operator} `;
+    } else if (e.target.textContent == "+") {
+        displayNumber.num2 = null;
+        operator = "+";
+        displayNumber.num1 = parseFloat(display.textContent);
+        display.textContent = "";
+        displayUp.textContent = `${displayNumber.num1} ${operator} `;
+    } else if (e.target.textContent == "-") {
+        displayNumber.num2 = null;
+        operator = "-";
+        displayNumber.num1 = parseFloat(display.textContent);
+        display.textContent = "";
+        displayUp.textContent = `${displayNumber.num1} ${operator} `;
+    } else if (e.target.textContent == "=") {
+        if (displayNumber.num1 != null && displayNumber.num2 != null) {
+            displayNumber.num1 = null;
+            displayNumber.num2 = null; 
+        } else if (displayNumber.num1 != null && displayNumber.num2 == null) {
+            displayNumber.num2 = parseFloat(display.textContent);
+            let equal = operate(operator, displayNumber.num1, displayNumber.num2);
+            displayUp.textContent = `${displayNumber.num1} ${operator} ${displayNumber.num2}`;
+            display.textContent = `${equal}`;
+            displayNumber.num1 = equal;
+        }
     }
+    console.log(displayNumber.num1);
+    console.log(displayNumber.num2);
+    return
 }
 
 function add(a,b) {
@@ -61,7 +109,5 @@ function operate(operator, a, b) {
         return multiply (a,b);
     } else if (operator == "/") {
         return divide(a,b);
-    } else {
-        return ('error')
     }
 }
