@@ -14,6 +14,12 @@ button{
     background-color: #474747;
     color: white;
     border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #aaaaaa;
+    transition: all 0.1s 0s ease-in-out;
 }
 
 .buttonsop button{
@@ -55,7 +61,7 @@ button{
 
 .buttons {
     flex: 1;
-    margin: 20px;
+    margin: 10px 20px 20px 20px;
 /*     background-color: black;
     border: 2px solid rgb(173, 173, 173); */
     border-radius: 15px;
@@ -73,7 +79,7 @@ button{
     font-size: 55px;
     display: flex;
     flex-direction: column;
-    background-color: rgb(160, 160, 160);
+    background-color: rgb(94, 94, 94);
     color: rgb(255, 255, 255);
     border-radius: 15px;
     width: 250px;
@@ -85,4 +91,17 @@ button{
     flex: 1;
     flex-shrink: 0;
     overflow: hidden;
+}
+
+.displaydown{
+    position: relative;
+    bottom: -15px;
+    right: 5px;
+    font-size: 65px;
+}
+
+.displayup{
+    position: relative;
+    bottom: 0px;
+    right: 5px;
 }

@@ -34,20 +34,20 @@ function populateDisplay(e) {
         }
     } else if (e.target.textContent == ".") {
         display.textContent += "."; 
-    } else if (e.target.textContent == "C") {
+    } else if (e.target.textContent == "AC") {
         displayNumber.num1 = null;
         displayNumber.num2 = null;
         display.textContent = '';
         displayUp.textContent = '';
-    } else if (e.target.textContent == "/") {
+    } else if (e.target.textContent == "÷") {
         displayNumber.num2 = null;
-        operator = "/";
+        operator = "÷";
         displayNumber.num1 = parseFloat(display.textContent);
         display.textContent = "";
         displayUp.textContent = `${displayNumber.num1} ${operator} `;
-    } else if (e.target.textContent == "*") {
+    } else if (e.target.textContent == "x") {
         displayNumber.num2 = null;
-        operator = "*";
+        operator = "x";
         displayNumber.num1 = parseFloat(display.textContent);
         display.textContent = "";
         displayUp.textContent = `${displayNumber.num1} ${operator} `;
@@ -105,9 +105,9 @@ function operate(operator, a, b) {
         return add(a,b);
     } else if (operator == "-") {
        return subtract(a,b);
-    } else if (operator == "*") {
+    } else if (operator == "x") {
         return multiply (a,b);
-    } else if (operator == "/") {
+    } else if (operator == "÷") {
         return divide(a,b);
     }
 }
