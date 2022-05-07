@@ -3,7 +3,9 @@ const displayUp = document.querySelector('.displayup');
 const display= document.querySelector('.displaydown');
 const buttons = containerButton.querySelectorAll('button');
 let displayNumber = {num1: null, num2: null}
-let operator = null;
+let operator = "";
+let equal;
+let aux = null;
 
 buttons.forEach((button) => {
         button.addEventListener('click', populateDisplay)
@@ -40,43 +42,142 @@ function populateDisplay(e) {
         display.textContent = '';
         displayUp.textContent = '';
     } else if (e.target.textContent == "÷") {
-        displayNumber.num2 = null;
         operator = "÷";
-        displayNumber.num1 = parseFloat(display.textContent);
-        display.textContent = "";
-        displayUp.textContent = `${displayNumber.num1} ${operator} `;
+        if (aux == "=") {
+            displayNumber.num1 = parseFloat(display.textContent);
+            display.textContent = "";
+            displayUp.textContent = `${displayNumber.num1} ${operator} `;
+            aux = null;
+        } else if (display.textContent == "" && displayUp.textContent == "") {
+            display.textContent == "";
+        } else {
+            if (displayNumber.num1 == null && displayNumber.num2 == null) {
+                displayNumber.num1 = parseFloat(display.textContent);
+                display.textContent = "";
+                displayUp.textContent = `${displayNumber.num1} ${operator} `;
+            } else if (displayNumber.num1 != null && displayNumber.num2 != null) {
+                displayNumber.num2 = parseFloat(display.textContent);
+                equal = operate(operator, displayNumber.num1, displayNumber.num2);
+                displayUp.textContent = `${equal} ${operator}`;
+                display.textContent = ``;
+                displayNumber.num1 = equal;
+            } else if (displayNumber.num1 != null && displayNumber.num2 == null) {
+                displayNumber.num2 = parseFloat(display.textContent);
+                equal = operate(operator, displayNumber.num1, displayNumber.num2);
+                displayUp.textContent = `${equal} ${operator}`;
+                display.textContent = ``;
+                displayNumber.num1 = equal;
+            }
+        }
     } else if (e.target.textContent == "x") {
-        displayNumber.num2 = null;
         operator = "x";
-        displayNumber.num1 = parseFloat(display.textContent);
-        display.textContent = "";
-        displayUp.textContent = `${displayNumber.num1} ${operator} `;
+        if (aux == "=") {
+            displayNumber.num1 = parseFloat(display.textContent);
+            display.textContent = "";
+            displayUp.textContent = `${displayNumber.num1} ${operator} `;
+            aux = null;
+        } else if (display.textContent == "" && displayUp.textContent == "") {
+            display.textContent == "";
+        } else {
+            if (displayNumber.num1 == null && displayNumber.num2 == null) {
+                displayNumber.num1 = parseFloat(display.textContent);
+                display.textContent = "";
+                displayUp.textContent = `${displayNumber.num1} ${operator} `;
+            } else if (displayNumber.num1 != null && displayNumber.num2 != null) {
+                displayNumber.num2 = parseFloat(display.textContent);
+                equal = operate(operator, displayNumber.num1, displayNumber.num2);
+                displayUp.textContent = `${equal} ${operator}`;
+                display.textContent = ``;
+                displayNumber.num1 = equal;
+            } else if (displayNumber.num1 != null && displayNumber.num2 == null) {
+                displayNumber.num2 = parseFloat(display.textContent);
+                equal = operate(operator, displayNumber.num1, displayNumber.num2);
+                displayUp.textContent = `${equal} ${operator}`;
+                display.textContent = ``;
+                displayNumber.num1 = equal;
+            }
+        }
     } else if (e.target.textContent == "+") {
-        displayNumber.num2 = null;
-        operator = "+";
-        displayNumber.num1 = parseFloat(display.textContent);
-        display.textContent = "";
-        displayUp.textContent = `${displayNumber.num1} ${operator} `;
-    } else if (e.target.textContent == "-") {
-        displayNumber.num2 = null;
-        operator = "-";
-        displayNumber.num1 = parseFloat(display.textContent);
-        display.textContent = "";
-        displayUp.textContent = `${displayNumber.num1} ${operator} `;
-    } else if (e.target.textContent == "=") {
-        if (displayNumber.num1 != null && displayNumber.num2 != null) {
-            displayNumber.num1 = null;
-            displayNumber.num2 = null; 
-        } else if (displayNumber.num1 != null && displayNumber.num2 == null) {
+/*         if (operator != "+" && operator != "") {
             displayNumber.num2 = parseFloat(display.textContent);
-            let equal = operate(operator, displayNumber.num1, displayNumber.num2);
+            equal = operate(operator, displayNumber.num1, displayNumber.num2);
+            displayUp.textContent = `${equal} ${operator}`;
+            display.textContent = ``;
+            displayNumber.num1 = equal;
+        } else {  */
+            operator = "+";
+            if (aux == "=") {
+                displayNumber.num1 = parseFloat(display.textContent);
+                display.textContent = "";
+                displayUp.textContent = `${displayNumber.num1} ${operator} `;
+                aux = null;
+            } else if (display.textContent == "" && displayUp.textContent == "") {
+                display.textContent == "";
+            } else {
+                if (displayNumber.num1 == null && displayNumber.num2 == null) {
+                    displayNumber.num1 = parseFloat(display.textContent);
+                    display.textContent = "";
+                    displayUp.textContent = `${displayNumber.num1} ${operator} `;
+                } else if (displayNumber.num1 != null && displayNumber.num2 != null) {
+                    displayNumber.num2 = parseFloat(display.textContent);
+                    equal = operate(operator, displayNumber.num1, displayNumber.num2);
+                    displayUp.textContent = `${equal} ${operator}`;
+                    display.textContent = ``;
+                    displayNumber.num1 = equal;
+                    operator = "";
+                } else if (displayNumber.num1 != null && displayNumber.num2 == null) {
+                    displayNumber.num2 = parseFloat(display.textContent);
+                    equal = operate(operator, displayNumber.num1, displayNumber.num2);
+                    displayUp.textContent = `${equal} ${operator}`;
+                    display.textContent = ``;
+                    displayNumber.num1 = equal;
+                }
+            }    
+    } else if (e.target.textContent == "-") {
+        operator = "-";
+        if (aux == "=") {
+            displayNumber.num1 = parseFloat(display.textContent);
+            display.textContent = "";
+            displayUp.textContent = `${displayNumber.num1} ${operator} `;
+            aux = null;
+        } else if (display.textContent == "" && displayUp.textContent == "") {
+            display.textContent == "";
+        } else {
+            if (displayNumber.num1 == null && displayNumber.num2 == null) {
+                displayNumber.num1 = parseFloat(display.textContent);
+                display.textContent = "";
+                displayUp.textContent = `${displayNumber.num1} ${operator} `;
+            } else if (displayNumber.num1 != null && displayNumber.num2 != null) {
+                displayNumber.num2 = parseFloat(display.textContent);
+                equal = operate(operator, displayNumber.num1, displayNumber.num2);
+                displayUp.textContent = `${equal} ${operator}`;
+                display.textContent = ``;
+                displayNumber.num1 = equal;
+            } else if (displayNumber.num1 != null && displayNumber.num2 == null) {
+                displayNumber.num2 = parseFloat(display.textContent);
+                equal = operate(operator, displayNumber.num1, displayNumber.num2);
+                displayUp.textContent = `${equal} ${operator}`;
+                display.textContent = ``;
+                displayNumber.num1 = equal;
+            }
+        }
+    } else if (e.target.textContent == "=") {
+        if (display.textContent == "" && displayUp.textContent == "") {
+            display.textContent == "";
+        } else {
+            aux = "=";
+            displayNumber.num2 = parseFloat(display.textContent);
+            equal = operate(operator, displayNumber.num1, displayNumber.num2);
             displayUp.textContent = `${displayNumber.num1} ${operator} ${displayNumber.num2}`;
             display.textContent = `${equal}`;
             displayNumber.num1 = equal;
+            operator = ""
         }
     }
     console.log(displayNumber.num1);
     console.log(displayNumber.num2);
+    console.log(operator)
+    console.log(typeof operator)
     return
 }
 
@@ -104,7 +205,7 @@ function operate(operator, a, b) {
     if (operator == "+") {
         return add(a,b);
     } else if (operator == "-") {
-       return subtract(a,b);
+    return subtract(a,b);
     } else if (operator == "x") {
         return multiply (a,b);
     } else if (operator == "÷") {

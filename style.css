@@ -17,6 +17,23 @@ button{
     cursor: pointer;
 }
 
+.clear {
+    background-color: #ff5269;
+}
+
+.clear:hover {
+    background-color: #fd7788;
+}
+
+.equal {
+    background-color: white;
+    color: #212121;
+}
+
+.equal:hover {
+    background-color: #d6d6d6;
+}
+
 button:hover {
     background-color: #aaaaaa;
     transition: all 0.1s 0s ease-in-out;
@@ -45,6 +62,10 @@ button:hover {
     border-radius: 30px;
 }
 
+.buttons, .buttonsop, .buttonsnum {
+    gap:16px;
+}
+
  .buttonsnum {
     display: grid;
     grid-template: repeat(4, 80px) / repeat(3, 50px);
@@ -57,6 +78,7 @@ button:hover {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    row-gap: 13.7px;
 }
 
 .buttons {
@@ -71,20 +93,17 @@ button:hover {
     padding: 10px;
 }
 
-.buttons, .buttonsop, .buttonsnum {
-    gap:10px;
-}
-
 .display {
     font-size: 55px;
     display: flex;
     flex-direction: column;
     background-color: rgb(94, 94, 94);
     color: rgb(255, 255, 255);
-    border-radius: 15px;
+    border-radius: 10px;
     width: 250px;
     height: 170px;
     text-align: end;
+    overflow: hidden;
 }
 
 .displaydown, .displayup {
@@ -104,4 +123,5 @@ button:hover {
     position: relative;
     bottom: 0px;
     right: 5px;
+    font-size: 40px;
 }
