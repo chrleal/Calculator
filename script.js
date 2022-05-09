@@ -1,3 +1,4 @@
+// Global variables
 const containerButton = document.querySelector('.buttons');
 const displayUp = document.querySelector('.displayup');
 const display= document.querySelector('.displaydown');
@@ -9,6 +10,7 @@ let operator = "";
 let equal;
 let aux = null;
 let number = "";
+
 
 buttons.forEach((button) => {
         button.addEventListener('click', populateDisplay)
@@ -22,6 +24,7 @@ eraseButton.addEventListener('click', () => {
     console.log(typeof display.textContent)
 })
 
+// Executes the action of the clicked button and displays it on the screen
 function populateDisplay(e) {
     if (e.target.textContent == "1") {
         number = "1";
@@ -65,12 +68,6 @@ function populateDisplay(e) {
             number = "."
             showNumber(number);
         }
-/*     } else if (e.target.texContent == "⌫") {
-        console.log("ok")
-        let split = display.textContent.split('')
-        console.log(split)
-        let remove = split.pop();
-        display.textContent = remove.toString();      */
     } else if (e.target.textContent == "AC") {
         displayNumber.num1 = null;
         displayNumber.num2 = null;
@@ -92,20 +89,17 @@ function populateDisplay(e) {
         setOperation(operator)
     } else if (e.target.textContent == "=") {
         pressEqual()
-/*     console.log(displayNumber.num1);
-    console.log(displayNumber.num2);
-    console.log(operator)
-    console.log(typeof operator) */
-    return
     }
 }
 
+// Prevents exceeding the number allowed on the screen, concatenates number entries and shows them
 function showNumber(number) {
     if (display.textContent.length < 7) {
         display.textContent += number;
     }
 }
 
+// Selects the operation that should be done
 function setOperation(operator) {
     if (aux == "=") {
         displayNumber.num1 = parseFloat(display.textContent);
@@ -113,46 +107,70 @@ function setOperation(operator) {
         displayUp.textContent = `${displayNumber.num1} ${operator} `;
         aux = null;
     } else if (display.textContent == "" && displayUp.textContent == "") {
-        display.textContent == "";
+        displayNumber.num1 = parseFloat("0");
+        display.textContent = "";
+        displayUp.textContent = `${displayNumber.num1} ${operator} `
     } else {
         if (displayNumber.num1 == null && displayNumber.num2 == null) {
             displayNumber.num1 = parseFloat(display.textContent);
             display.textContent = "";
             displayUp.textContent = `${displayNumber.num1} ${operator} `;
-        } else /* if (displayNumber.num1 != null && displayNumber.num2 != null) */ {
+        } else {
             let split = displayUp.textContent.split('');
             console.log(split);
             let filter = split.filter(operator => (operator == '÷' || operator == 'x' || operator == '+' || operator == '-'))
             if (filter == operator) {
+                console.log(operator)
                 displayNumber.num2 = parseFloat(display.textContent);
-                equal = operate(operator, displayNumber.num1, displayNumber.num2);
-                displayUp.textContent = `${equal} ${operator}`;
-                display.textContent = ``;
-                displayNumber.num1 = equal;
+                while (display.textContent != ""){
+                    equal = operate(operator, displayNumber.num1, displayNumber.num2);
+                    displayUp.textContent = `${equal} ${operator}`;
+                    display.textContent = ``;
+                    displayNumber.num1 = equal;
+                }
             } else {
+                displayUp.textContent = `${displayNumber.num1} ${operator} `;
                 let previousOperator = operator;
-                operator = filter;
-                displayNumber.num2 = parseFloat(display.textContent);
-                equal = operate(operator, displayNumber.num1, displayNumber.num2);
-                displayUp.textContent = `${equal} ${previousOperator}`;
-                display.textContent = ``;
-                displayNumber.num1 = equal;
+                if (filter.length = 1) {
+                    operator = filter.join('');
+                    displayNumber.num2 = parseFloat(display.textContent);
+                    while (display.textContent != ""){
+                        equal = operate(operator, displayNumber.num1, displayNumber.num2);
+                        displayUp.textContent = `${equal} ${previousOperator}`;
+                        display.textContent = ``;
+                        displayNumber.num1 = equal;
+                    }
+                } else {
+                    filter.pop();
+                    operator = filter.join('');
+                    displayNumber.num2 = parseFloat(display.textContent);
+                    while (display.textContent != "") {
+                        equal = operate(operator, displayNumber.num1, displayNumber.num2);
+                        displayUp.textContent = `${equal} ${previousOperator}`;
+                        display.textContent = ``;
+                        displayNumber.num1 = equal;
+                    }
+                }
             }
         }
     }
 }
 
+// Evaluates the operation
 function pressEqual() {
     if (display.textContent == "" && displayUp.textContent == "") {
         display.textContent == "";
     } else {
         aux = "=";
+        while (display.textContent != "") {
         displayNumber.num2 = parseFloat(display.textContent);
         equal = operate(operator, displayNumber.num1, displayNumber.num2);
         getExponentialEqual(equal);
+        }
     }
 }
 
+// Sets the result to exponential if it exceeds the screen limit
 function getExponentialEqual(number) {
     if (number.toString().length > 7) {
         let roundNumber = number.toExponential(2);
@@ -188,6 +206,7 @@ function divide (a,b) {
     return div
 }
 
+// Does the math
 function operate(operator, a, b) {
     if (operator == "+") {
         return add(a,b);
